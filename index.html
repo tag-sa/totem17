@@ -207,8 +207,9 @@
             }
             h3 {
                 font-family: 'Superline';
-                font-size: 48px;
-                line-height: 0px;
+                font-size: 38px;
+                line-height: 36px;
+                margin: 10px 0;
             }
             #modal .subtitle {
                 font-family: 'Montreal';
@@ -885,6 +886,8 @@
             mapKey: 'data-name',
             listKey: 'data-name',
             onClick: function (data) {
+                let html = ''; 
+                let rowlist = ''
                 if ( data.e.currentTarget.dataset.type == 'hint' ) {
                     if ( data.e.currentTarget.dataset.side && data.e.currentTarget.dataset.side == 'left' )
                         $('#view').css('left', data.e.pageX - 422)
@@ -913,6 +916,9 @@
                         $('#modal .brand').attr('src', '')
                         $('#modal .bg').attr('src', '')
                         $('#modal').fadeIn(100)
+                        $('#modal .over').html('')
+                        $('#modal .row').html('')
+                        $('.rowslist').html('')
                         
                         if ( results[0].data.image && results[0].data.image != '' ) {
                             $('#modal .bg').attr('src',  results[0].data.image)
@@ -954,13 +960,10 @@
                         if ( results[0].data.description_model && results[0].data.description_model == 'center' ) {
                             $('#modal .menu').css('text-align', 'center')
                         }
-
                         if (results[0].data.rows) {
                             let $modal = $('#modal .rowslist');
-                            let html = ''; 
-
                             for (let i = 0; i < results[0].data.rows.length; i++) { // Correção do loop
-                                let rowlist = results[0].data.rows[i];
+                                rowlist = results[0].data.rows[i];
 
                                 html += '<hr />';
                                 html += '<div class="rowslist">';
@@ -970,7 +973,7 @@
                                 }
                                 if ( rowlist.columns && rowlist.columns !== '') {
                                     html += '<div class="columns">';
-                                        for (let j = 0; j < rowlist.columns.col01.length; j++) {
+                                    for (let j = 0; j < rowlist.columns.col01.length; j++) {
                                         html += '<div class="col">';
                                         html += '<h3>' + rowlist.columns.col01[j].name + '</h3>';
                                         if ( rowlist.columns.col01[j].description && rowlist.columns.col01[j].description !== '')
@@ -982,6 +985,7 @@
                                         html += '<h3>' + rowlist.columns.col02[j].name + '</h3>';
                                         if ( rowlist.columns.col02[j].description && rowlist.columns.col02[j].description !== '')
                                             html += '<p>' + rowlist.columns.col02[j].description + '</p>';
+
                                         html += '</div>';
                                     }
                                     html += '</div>';
