@@ -260,6 +260,9 @@
                 margin-top: 20px;
                 padding: 0 20px
             }
+            #modal .imgcontent {
+                padding: 0 30px
+            }
             #modal .columns {
                 padding: 0 100px;
                 display: grid;
@@ -278,6 +281,35 @@
             .over {
                 overflow: scroll;
                 max-height: 600px;
+            }
+            #modal .item-atracao {
+                width: 326px;
+                float: left;
+                /* gap: 10px; */
+                /* flex-wrap: wrap; */
+                justify-content: space-between;
+                align-items: center;
+                height: 250px;
+                margin-right: 20px;
+                margin-left: 12px;
+            }
+            #modal .item-atracao .col img {
+                width: -webkit-fill-available;
+                height: auto;
+            }
+            #modal .item-atracao .col .desc {
+                margin: -207px 0 0 137px;
+                width: 190px;
+                height: 209px;
+                display: flex;
+                flex-direction: column;
+                place-content: center;
+            }
+            #modal .item-atracao .white {
+                color: white;
+            }
+            .description {
+                font-family: 'Montreal';
             }
         </style>
     </head>
@@ -532,85 +564,110 @@
         image: 'content/items/bg-buffet.png',
         rows: [
             {
-                title: 'Mesas de Antepastos',
-                time: '20h30 – 01h',
+                title: 'Antepasto',
+                time: '20h30 – 01h'
+            },
+            {
+                title: 'Coquetel Finger Food',
+                time: '21h – 23h',
                 number: 2,
                 columns: {
                     col01: [
                         {
-                            name: 'Jambuja',
-                            description: 'Jambu, vinho branco, soda, blend de maracujá, lichia e limão.'
-                        },
-                        {
-                            name: 'Cosmo level',
-                            description: 'Gin, vinho branco, cramberry e limão.'
-                        },
-                        {
-                            name: 'Tulum',
-                            description: 'Saquê, chá branco, pitaya e limão.'
+                            name: 'Brandade de Bacalhau',
+                            description: 'Finalizado com tapenade de azeitonas portuguesas.'
                         },
                     ],
                     col02: [
                         {
-                            name: 'Lemoncello',
-                            description: 'Limoncello e espumante brut.'
+                            name: 'Arancini de Queijo Provolone',
                         },
                         {
-                            name: 'Fitzgerald',
-                            description: 'Gin, limão, simple syrup e angostura.'
+                            name: 'Mignon a Wellington',
                         },
-                        {
-                            name: 'Passion sour',
-                            description: 'Whisky, purê de maracujá, xarope de amaretto, suco de abacaxi e limão siciliano'
-                        }
                     ]
                 }
+            },
+            {
+                title: 'Ilha QUente',
+                time: '22h – 04h',
+                number: 2,
+                columns: {
+                    col01: [
+                        {
+                            name: 'Risoto de triple funghi',
+                            description: 'E queijo grana padano.'
+                        },
+                        {
+                            name: 'Risoto Caprese',
+                            description: 'Com tomate italiano, mussarela de búfala e manjericão.'
+                        },
+                        {
+                            name: 'Sorrentino de ricota',
+                            description: 'E ervas finas finalizado com creme Alla’rabiatta (vegetariano).'
+                        },
+                    ],
+                    col02: [
+                        {
+                            name: 'Tortelonis de mozarela',
+                            description: 'E maçã na massa verde ao molho de 4 queijos (vegetariano).'
+                        },
+                        {
+                            name: 'Cubos de filé Mignon',
+                            description: 'Grelhados ao molho de vinho do Porto e frutas vermelhas.'
+                        },
+                        {
+                            name: 'Bobó de camarão',
+                            description: 'Finalizado com ervas frescas.'
+                        },
+                    ]
+                }
+            },
+            {
+                title: 'Lanche da Madrugada',
+                time: '04h – 06h',
+                number: 2,
+                columns: {
+                    col01: [
+                        {
+                            name: 'Mini batata suíça',
+                            description: 'De quatro queijos e carne seca.'
+                        },
+                    ],
+                    col02: [
+                        {
+                            name: 'Baby Burguer',
+                            description: 'Com mostarda dijon e cebola caramelizada.'
+                        },
+                    ]
+                },
+            },
+            {
+                title: 'Estação de Brigadeiros',
+                time: '02h – 05h',
+                number: 2,
+                columns: {
+                    col01: [
+                        {
+                            name: 'Brigadeiro tradicional de chocolate belga',
+                        },
+                        {
+                            name: 'Brigadeiro branco',
+                        },
+                    ],
+                    col02: [
+                        {
+                            name: 'Brigadeiro de ovomaltine',
+                        },
+                        {
+                            name: 'Brigadeiro de doce de leite',
+                        },
+                    ]
+                },
             },
         ]
     });
 
-// Coquetel Finger Food:
-// Horário coquetel volante: 21:00 – 23:00
-
-// Brandade de bacalhau finalizado com tapenade de azeitonas portuguesas
-// Arancini de queijo provolone
-// Mignon a Wellington
-
-// Ilha Quente:
-// Horário: 22:00 – 03:00
-
-// Risoto de triple funghi e queijo grana padano
-// Risoto Caprese com tomate italiano, mussarela de búfala e manjericão
-// Sorrentino de ricota e ervas finas finalizado com creme Alla’rabiatta (vegetariano)
-// Tortelonis de mozarela e maçã na massa verde ao molho de 4 queijos (vegetariano)
-// Cubos de filé Mignon grelhados ao molho de vinho do Porto e frutas vermelhas
-// Bobó de camarão finalizado com ervas frescas
-
-// Lanche da Madrugada:
-// Horário: 04:00 – 06:00
-
-// Mini batata suiça de 4 queijos
-// Mini batata suiça de carne seca
-// Baby burguer com mostarda Dijon e cebola caramelizada
-
-// Estação de Brigadeiros:
-// Brigadeiro branco
-// Brigadeiro de ovomaltine 
-// brigadeiro de doce de leite
-// Brigadeiro tradicional de chocolate belga
-// Granulado ao leite
-// Bolinhas de chocolate
-// Côco tradicional
-// Côco queimado
-// Amendoim
-// Casquinhas
-
-// Doces Gourmet - (colocar obs para o local em que o formando irá retirar)
-// Trufas de Pistache
-// Trufas de Chocolate Belga e Avelãs
-// Bombom de Creme Brulée
-// Bombom de Frutas Vermelhas
-// Bombom de Limão Siciliano',  
     modalData.push({
         key: 'bar',
         title: 'Open Bar',
@@ -693,84 +750,131 @@
     })
 
     menu = []
-    // menu.push({
-    //     name: 'Piano de Cauda e Sax',
-    // });
-    // menu.push({
-    //     name: 'Lenhadores da Antártida',
-    //     description: '22h - 23h30', 
-    // });
-    // menu.push({
-    //     name: 'DJ Mitro',
-    //     description: '23h30 - 00h45',
-    // });
-    // menu.push({
-    //     name: 'Baile do Pita',
-    //     description: '00h45 - 02h',
-    // });
-    // menu.push({
-    //     name: 'Ruan Mansur',
-    //     description: '02h15 - 03h15',
-    // });
-    // menu.push({
-    //     name: 'Bonde do Tigrão',
-    //     description: '03h30 - 04h45',
-    // });
-    // menu.push({
-    //     name: 'Jonatas Felipe',
-    //     description: '05h - 06h',
-    // });
-    // menu.push({
-    //     name: 'Dummer',
-    //     extra: 'AFTER',
-    //     description: '06h - 07h',
-    // });
-    // menu.push({
-    //     name: 'DJ Dreysson',
-    //     extra: 'AFTER',
-    //     description: '07h - 08h',
-    // });
-    // menu.push({
-    //     name: 'DJ Mitro',
-    //     extra: 'AFTER',
-    //     description: '08h - 10h',
-    // });
-    // menu.push({
-    //     name: 'DJ Juan',
-    //     extra: 'AFTER',
-    //     description: '10h - 11h',
-    // });
     modalData.push({
         key: 'pistapalco',
         image: 'content/atracoes/bg-atracoes.png',
         items: [
             {
                 name: 'Piano de causa e sax',
-                // time: '22h - 23h30',
                 image: 'content/atracoes/piano.png',
-            }
+            },
+            {
+                name: 'Lenhadores',
+                time: '22h - 23h',
+                image: 'content/atracoes/lenhadores.png',
+            },
+            {
+                name: 'DJ Mitro',
+                time: '23h30 - 00h45',
+                image: 'content/atracoes/mitro.png',
+            },
+            {
+                name: 'Baile do Pita',
+                time: '00h45 - 02h',
+                image: 'content/atracoes/pita.png',
+            },
+            {
+                name: 'Juan Mansur',
+                time: '02h15 - 03h15',
+                image: 'content/atracoes/mansur.png',
+            },
+            {
+                name: 'Bonde do Tigrão',
+                time: '03h30 - 04h45',
+                image: 'content/atracoes/bonde.png',
+            },
+            {
+                name: 'Jonatas Felipe',
+                time: '05h - 06h',
+                image: 'content/atracoes/jonatas.png',
+            },
         ],
         title: 'Line Up | Palco Principal',
     })
+
+
+    menu = []
     modalData.push({
-        key: 'revelo',
-        title: 'Revelô | RVLPROD',
-        description: 'Photo point exclusivo com fotos exibidas em tempo real.', 
+        key: 'after',
+        image: 'content/atracoes/bg-after.png',
+        items: [
+            {
+                name: 'Dummer',
+                extra: 'AFTER',
+                time: '06h - 07h',
+                image: 'content/atracoes/dummer.png',
+            },
+            {
+                name: 'DJ Dreysson',
+                extra: 'AFTER',
+                time: '07h - 08h',
+                image: 'content/atracoes/dreysson.png',
+            },
+            {
+                name: 'DJ Mitro',
+                extra: 'AFTER',
+                time: '08h - 10h',
+                image: 'content/atracoes/mitro.png',
+            },
+            {
+                name: 'DJ Juan',
+                extra: 'AFTER',
+                time: '10h - 11h',
+                image: 'content/atracoes/juan.png',
+            },
+        ],
+        title: 'Line Up | Palco After',
     })
+
+
     modalData.push({
         key: 'atmosfera',
-        title: 'Atmosfera',
-        description: '',
+        title: 'Você está prestes a entrar em um <span style="color: #FF0000;">Universo Exclusivo</span>.',
+        description: 'No grupo Atmosfera que une as marcas YZ, Formô e Revelô, acreditamos que cada evento é uma oportunidade de criar uma experiência única. Este espaço foi projetado para ser uma verdadeira imersão atmosférica exclusivo aos formandos.',
+        image: 'content/atracoes/bg-atm.png',
+        rows: [
+            {
+                title: 'Astro Bar',
+                number: 2,
+                columns: {
+                    col01: [
+                        {
+                            name: 'Stratos Mule',
+                            description: 'Vodka, simple syrup, bitter, limão e espuma de gengibre.'
+                        },
+                    ],
+                    col02: [
+                        {
+                            name: 'Velvet Nebula',
+                            description: 'Vodka, blend de morango, toranja e abacaxi'
+                        }
+                    ]
+                }
+            },
+            {
+                title: 'Buffet',
+                description: 'Experiência gastronômica',
+            },
+            {
+                title: 'Astronauta à Vista',
+                key: 'astronauta',
+                description: 'Ah, e tem um astronauta por aí. Se você topar com ele, aproveite e pegue um adesivo para marcar sua missão na festa.',
+            }
+        ]
+    })
+    
+    
+    modalData.push({
+        key: 'revelo',
+        image: 'content/atracoes/bg-revelo.png',
+        content: 'content/atracoes/fotos-revelo.png',
+        title: 'Reconhecemos as transições<br />Documentamos cada uma delas.',
+        description: 'Conheça mais da Revelô em <strong>@rvloprod</strong>', 
     })
     modalData.push({
         key: 'grafite',
         title: 'Grafite',
         description: 'Fazendo arte em tempo real pelo artista Proza.',
-    })
-    modalData.push({
-        key: 'after',
-        title: 'After',
-        description: 'Palco com receptivo dos convidados que se transformará ao longo da noite no palco da after party dos formandos.',
     })
     modalData.push({
         key: 'estudio',
@@ -996,6 +1100,7 @@
                         $('#modal').fadeIn(100)
                         $('#modal .over').html('')
                         $('#modal .row').html('')
+                        $('#modal .imgcontent').html('')
                         $('.rowslist').html('')
                         
                         if ( results[0].data.image && results[0].data.image != '' ) {
@@ -1014,6 +1119,12 @@
                                 $('#modal .title').append('<span class="badge">' + results[0].data.extra + '</span>')
                             }
                         } else {
+                            if ( data.key == 'atmosfera' ) {
+                                $('#modal .title').css('font-size', '56px')
+                            }
+                            if ( data.key == 'revelo' ) {
+                                $('#modal .title').css('line-height', '78px') 
+                            }
                             $('#modal .title').html(results[0].data.title)
                         }
                         if ( results[0].data.description && results[0].data.description != '' ) {
@@ -1023,6 +1134,9 @@
                         }
                         if ( results[0].data.time && results[0].data.time != '' ) {
                             $('#modal .time').html(results[0].data.time)
+                        }
+                        if ( results[0].data.content && results[0].data.content != '' ) {
+                            $('#modal .imgcontent').html('<img src="' + results[0].data.content + '" style="width:100%;height:auto;margin-top:20px" />')
                         }
                         if ( results[0].data.menu && results[0].data.menu != '' ) {
                             for ( let m of results[0].data.menu ) { 
@@ -1045,9 +1159,24 @@
 
                                 html += '<hr />';
                                 html += '<div class="rowslist">';
-
+                                
+                                if ( rowlist.key && rowlist.key == 'astronauta' ) {
+                                    html += '<img src="content/atracoes/atm.png" style="float: left;height: 300px;margin-top: -70px; margin-right: 30px" />';
+                                }
                                 if (rowlist.title && rowlist.title !== '') {
-                                    html += '<h2>' + rowlist.title + '</h2>';
+                                    if ( rowlist.key && rowlist.key == 'astronauta' ) {
+                                        html += '<h2 style="margin-top:100px; text-align:left;">' + rowlist.title + '</h2>';
+                                    } else
+                                        html += '<h2>' + rowlist.title + '</h2>';
+                                }
+                                if (rowlist.description && rowlist.description !== '') {
+                                    if ( rowlist.key && rowlist.key == 'astronauta' ) {
+                                        html += '<p class="description" style="text-align:left;">' + rowlist.description + '</p>';
+                                    } else
+                                        html += '<p class="description">' + rowlist.description + '</p>';
+                                }
+                                if (rowlist.time && rowlist.time !== '') {
+                                    html += '<p class="time">' + rowlist.time + '</p>';
                                 }
                                 if ( rowlist.columns && rowlist.columns !== '') {
                                     html += '<div class="columns">';
@@ -1072,16 +1201,23 @@
                             }
                             $modal.html(html);
                         }
+                        // if ( results[0].data.description && results[0].data.description != '' ) {
+                        //     $('#modal .description').html(results[0].data.description)
+                        // }
+
                         if (results[0].data.items) {
                             let $modal = $('#modal .over');
                             for (let i = 0; i < results[0].data.items.length; i++) { // Correção do loop
                                 let item = results[0].data.items[i];
-                                html += '<hr />';
                                 html += '<div class="item-atracao">';
                                 if ( item.image && item.image != '' )
                                     html += '<div class="col"><img src="' + item.image + '" alt="" />';
-                                    if ( item.time && item.time != '' )
-                                        html += '<div class="col white time"><p>' + item.time + '</p></div>';
+                                        html += '<div class="desc">';
+                                        if ( item.name && item.name != '' )
+                                            html += '<h3 class="white name">' + item.name + '</h3>'; 
+                                        if ( item.time && item.time != '' )
+                                            html += '<div class="white time">' + item.time + '</div>';
+                                        html += '</div>';
                                     html += '</div>';
                                 html += '</div>';
                             }
@@ -1101,6 +1237,7 @@
         <h1 class="title"></h1>
         <p class="subtitle"></p>
         <p class="time"></p>
+        <div class="imgcontent"></div>
         <div class="rowslist over"></div>
         <div class="menu"></div>
         <a class="close"><img src="back.png" /></a>
