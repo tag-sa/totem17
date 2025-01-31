@@ -1,0 +1,1211 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>TOTEM UP 17</title>
+        <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="node_modules/imagemapster/dist/jquery.imagemapster.min.js"></script>
+        <style type="text/css">
+            @font-face {
+                font-family: 'Superline';
+                src: url('font/Superline-Regular.ttf');
+            }
+            @font-face {
+                font-family: 'Montreal';
+                src: url('font/Montreal-Regular.ttf');
+            }
+            @font-face {
+                font-family: 'MontrealBold';
+                src: url('font/Montreal-Bold.ttf');
+            }
+            * {
+                max-width: 1080px;
+            }
+            html, body {
+                width: 1080px;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                background-image: url('fundo.jpg');
+                background-size: cover;
+                background-repeat: repeat-x;
+            }
+            #imgmap2025130123528 {
+                margin: auto;
+                position: relative;
+                width: 100%;
+                height: 100%;
+            }
+            .badge {
+                display: inline-block;
+                padding: 4px 8px;
+                font-size: 12px;
+                font-weight: bold;
+                color: white;
+                background-color: #28a745; /* Verde */
+                border-radius: 12px;
+                text-align: center;
+                white-space: nowrap;
+            }
+            #view {
+                position: absolute;
+                display: none;
+                justify-content: space-between;
+                z-index: 1;
+                width: 415px;
+                height: 95px;
+                color: black;
+                background-image: url('tag.png');
+                background-repeat: no-repeat;
+                background-size: contain
+            }
+            #view .area1 {
+                display: flex !important;
+            }
+            #view .photo {
+                height: 69px;
+                margin: 4px;
+            }
+            #view .number {
+                font-family: 'Superline';
+                font-size: 55px;
+                text-align: center;
+                height: 77px;
+                width: 60px;
+                margin-right: 20px;
+                align-content: center;
+            }
+            #view .name {
+                font-family: 'MontrealBold';
+                align-content: center;
+                height: 77px;
+                width: 256px;
+                font-size: 17px;
+                text-align: left;
+            }
+            #finder {
+                position: absolute;
+                width: 100%;
+                margin-top: 340px;
+                z-index: 1;
+            }
+            #search {
+                background: url(lupa.png) no-repeat scroll 7px 7px;
+                background-size: 30px;
+                background-position: 15px 15px;
+                z-index: 1;
+                border: 1px solid #444;
+                color: white;
+                padding: 20px 20px 20px 60px;
+                font-size: 20px;
+                font-weight: lighter;
+                font-family: Arial;
+                border-radius: 10px;
+                width: 57%;
+            }
+            #results {
+                display: inline-block;
+                font-size: 20px;
+                font-weight: lighter;
+                font-family: Arial;
+                border-radius: 10px;
+                width: 56%;
+            }
+            #results .item {
+                cursor: pointer;
+                display: flex;
+                font-family: 'MontrealBold';
+                font-size: 20px;
+                padding: 20px;
+                background: #EFEFEF;
+                margin-bottom: 4px;
+                place-items: anchor-center
+            }
+            #results .item img {width: 55px}
+            #results .item .name {margin-left:10px}
+            .astronauta {
+                position: absolute;
+                width: 600px;
+                top: 1153px;
+                margin-left: -510px;
+                transform-origin: bottom center;
+                animation: astronautaFloat 6s ease-in-out infinite;
+            }
+            @keyframes astronautaFloat {
+                0% { transform: translate(0, 0) rotate(0deg); }
+                25% { transform: translate(3px, -3px) rotate(1deg);  }
+                50% {transform: translate(6px, -6px) rotate(-1deg); }
+                75% { transform: translate(3px, -3px) rotate(1deg); }
+                100% { transform: translate(0, 0) rotate(0deg); }
+            }
+            .hand {
+                position: absolute;
+                width: 60px;
+                top: 907px;
+                margin-left: -170px;
+                transform-origin: bottom center;
+                animation: fingerMove 0.5s ease-in-out infinite alternate;
+            }
+            @keyframes fingerMove {
+                0% { transform: translate(0, 0) rotate(0deg); }
+                100% { transform: translate(5px, -9px) rotate(-1deg); }
+                /* 100% { transform: translate(10px, -16px) rotate(-1deg); } */
+            }
+            .hint {
+                display: inline-block;
+                opacity: 0.7;
+                width: 53.2%;
+                padding: 15px 20px;
+                font-family: 'Montreal';
+                font-size: 12px;
+                text-align: left;
+                background: #EFEFEF;
+                margin-top: 4px;
+                margin-bottom: 4px
+            }
+            .no-result {
+                display: block;
+                /* display: inline-block; */
+                /* width: 53.2%; */
+                padding: 15px 20px;
+                font-family: 'Montreal';
+                font-size: 12px;
+                text-align: left;
+                background: #EFEFEF;
+                margin-top: 4px;
+                margin-bottom: 4px
+            }
+            #modal {
+                position: absolute;
+                width: 70%;
+                min-height: 60%;
+                margin-top: 26%;
+                margin-left: 15%;
+                margin-right: 15%;
+                border-radius: 42px;
+                background-color: #FCFCFC;
+                z-index: 10;
+                background-image: url(bg-modal.png);
+                background-size: cover;
+                display: flex;
+                flex-direction: column;
+            }
+            #modal .bg {
+                width: -webkit-fill-available;
+                margin: 10px;
+                border-top-left-radius: 37px;
+                border-top-right-radius: 37px;
+            }
+            #modal .title, h1 {
+                font-family: 'Superline';
+                font-size: 80px;
+                line-height: 0px;
+            }
+            h2 {
+                font-family: 'Superline';
+                font-size: 60px;
+                line-height: 0px;
+            }
+            h3 {
+                font-family: 'Superline';
+                font-size: 48px;
+                line-height: 0px;
+            }
+            #modal .subtitle {
+                font-family: 'Montreal';
+                padding: 0 10%
+            }
+            #modal .time {
+                padding: 0;
+                margin: 0;
+                font-family: 'MontrealBold';
+                font-size: 20px;
+                letter-spacing: -0.07em;
+            }
+            #modal .menu {
+                text-align: left;
+                padding: 0 10%;
+                margin-top: 20px;
+                font-family: 'Montreal';
+            }
+            #modal .menu .card-title {
+                font-size: 42px;
+                font-family: 'Superline';
+                line-height: 0px;
+                padding: 0;
+                margin: 30px 0;
+            }
+            #modal .menu .card-description {
+                line-height: 0px;
+                margin-bottom: 60px;
+            }
+            #modal .close {
+                cursor: pointer;
+                margin-top: auto;
+                margin-bottom: 20px
+            }
+            #modal .close img {
+                width: 120px;
+            }
+            #modal .close-top {
+                cursor: pointer;
+                position: absolute;
+                right: 35px;
+                top: 35px;
+            }
+            #modal .close-top img {
+                width: 20px;
+            }
+            #modal .rowslist {
+                margin-top: 20px;
+                padding: 0 20px
+            }
+            #modal .columns {
+                padding: 0 100px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            #modal .columns .col {
+                text-align: left;
+            }
+            #modal .columns .col p {
+                font-family: 'Montreal';
+            }
+            #modal .row {
+                margin-top: 20px;
+            }
+            .over {
+                overflow: scroll;
+                max-height: 600px;
+            }
+        </style>
+    </head>
+    <script>
+    function getCoordinatesByName(name) {
+        let area = $(`area[data-name="${name}"]`);
+        if (area.length > 0) {
+            let shape = area.attr("shape");
+            let coords = area.attr("coords").split(",");
+            let incX = 0;
+            if ( area.data('side') && area.data('side') == 'left' )
+                incX = -422
+            if (shape === "rect") {
+                return { x: parseInt(coords[0]) + incX, y: parseInt(coords[1]) };
+            } else if (shape === "circle") {
+                return { x: parseInt(coords[0]) + incX, y: parseInt(coords[1]) };
+            }
+        }
+        return null;
+    }
+    $(document).ready(function () {
+        $( "#modal").hide();
+        $('.hint').hide();
+        let debounceTimer;
+        $("#results").on("click", ".select", function () {
+            const key = $(this).data('key');
+            const coords = getCoordinatesByName(key);
+            $('#view').css('left', coords.x + 10);
+            $('#view').css('top', coords.y - 32);
+            $('#view').fadeIn(100);
+            $('#view').css('display', 'flex');
+            $('#view .photo').attr('src', 'content/fotos/' + key + '.png');
+            $('#view .name').html(fontData[key].name);
+            $('#view .number').html(key);
+            $('.mapster_el').css('opacity', 1);
+            $('#area_' + key).mapster('select');
+            $("#results").html('');
+            $('.hint').hide();
+            $('html, body').animate({
+                scrollTop: coords.y - 240
+            }, 300);
+        });
+        $("#search").on("keyup", function () {
+            $('#view').fadeOut(100);
+            $('.mapster_el').css('opacity', 0.3); 
+            clearTimeout(debounceTimer);
+            let query = $(this).val().trim();
+            if ( query == '' ) {
+                $('.mapster_el').css('opacity', 1); 
+            }
+            debounceTimer = setTimeout(function () {
+                if (query.length > 2) {
+                    $('.hint').fadeIn(100);
+                    query = query.toLowerCase();
+                    const results = Object.keys(fontData)
+                        .filter(index => fontData[index].name.toLowerCase().includes(query))
+                        .map(index => ({ index, name: fontData[index].name }));
+                    
+                    results.sort((a, b) => a.name.localeCompare(b.name));
+
+                    $("#results").html('');
+                    if (results.length > 0) {
+                        results.forEach(item => {
+                            $("#results").append(`
+                                <div class="row item select" data-key="${item.index}">
+                                    <img src="content/fotos/${item.index}.png" alt="" />
+                                    <div class="name">${item.name}</div>
+                                </div>
+                            `);
+                        });
+                    } else {
+                        $('.hint').hide();
+                        $("#results").html('<div class="row no-result"><em>Nenhum resultado encontrado...</em></div>');
+                    }
+                } else {
+                    $('.hint').hide();
+                    $("#results").html('');
+                }
+            }, 300);
+        });
+        $('.close').on('click', function () {
+            $("#modal").fadeOut(200);
+        });
+        $('.close-top').on('click', function () {
+            $("#modal").fadeOut(200);
+        });
+    });
+
+    modalData = []
+    let menu = []
+    
+    
+    menu = []
+    menu.push({
+        name: 'Italian Tonic Zero',
+        description: 'Bitter + tônica + fatia de laranja ou limão'
+    });
+    menu.push({
+        name: 'Gin Tonic Zero',
+        description: 'Gin + tônica + fatia de laranja ou limão'
+    });
+    menu.push({
+        name: 'Negroni Zero',
+        description: 'Gin + bitter + suco de uva + fatia de laranja'
+    });
+    modalData.push({
+        key: 'miden',
+        title: 'Miden',
+        description: 'A primeira destilaria zero àlcool do Brasil, feito pra você celebrar a vida sem limites.',
+        time: '22h - 01h',
+        image: 'content/items/bg-miden.png',
+        brand: 'content/items/logo-miden.png',
+        menu: menu
+    })
+
+
+    menu = []
+    menu.push({
+        name: 'Coco e Limão'
+    });
+    menu.push({
+        name: 'Frutas Vermelhas'
+    });
+    menu.push({
+        name: 'Mate'
+    });
+    menu.push({
+        name: '3 Limões'
+    });
+    modalData.push({
+        key: 'bacco',
+        title: 'Bacco',
+        description: 'Bacco Vodka - A melhor vodka do Brasil.<br />Licores e drinks concentrados únicos e inovadores.',
+        time: '01h - 05h',
+        brand_width: '250px',
+        description_model: 'center',
+        image: 'content/items/bg-bacco.png',
+        brand: 'content/items/logo-bacco.png',
+        menu: menu
+    })
+
+    menu = []
+    menu.push({
+        name: 'Sabor: Maracujá, Limão e Calda de Agave'
+    });
+    modalData.push({
+        key: 'quetzalli',
+        title: 'Quetzalli',
+        time: '01h - 03h',
+        image: 'content/items/bg-quetzalli.png',
+        brand: 'content/items/logo-quetzalli.png',
+        brand_width: '250px',
+        description_model: 'center',
+        menu: menu,
+        description: 'Fácil, rápido e delicioso: um drink 100% à base de tequila e pronto para beber!',
+    })
+
+
+    modalData.push({
+        key: 'antepastos',
+        title: 'Antepastos',
+        time: '20h30 - 01h', 
+        image: 'content/items/bg-antepastos.png',
+        description: '',
+    })
+
+    menu = []
+    menu.push({
+        name: 'Energy Whiskey',
+        description: 'Red label e Redbull',
+    });
+    menu.push({
+        name: 'Jack And Coke',
+        description: 'Jack Daniels e Coca Cola',
+    });
+    menu.push({
+        name: 'Whisky Sour',
+        description: 'Whisky, limão simple syrup e albumina',
+    });
+    modalData.push({
+        key: 'whiskeria',
+        title: 'Whiskeria',
+        description_model: 'center',
+        image: 'content/items/bg-whiskeria.png',
+        menu: menu,
+        time: '22h - 06h',
+        description: 'Bar exclusivo com as principais marcas de Whisky e coquetéis clássicos.',
+    })
+
+
+    menu = []
+    menu.push({
+        name: 'Chocolate Belga'
+    });
+    menu.push({
+        name: 'Nutellinho'
+    });
+    menu.push({
+        name: 'Morango Diet'
+    });
+    menu.push({
+        name: 'Maracujá'
+    });
+    modalData.push({
+        key: 'milk',
+        title: 'Milk Creamery',
+        image: 'content/items/bg-milk.png',
+        brand: 'content/items/logo-milk.png',
+        brand_width: '250px',
+        description_model: 'center',
+        menu: menu,
+        time: 'à partir das 03h',
+        description: 'Aqui, a arte do gelato italiano encontra a inovação para criar experiências inesquecíveis.',
+    })
+
+
+    modalData.push({
+        key: 'mcdonalds',
+        title: 'McDonald\'s',
+        image: 'content/items/bg-mcdonalds.png',
+        brand: 'content/items/logo-mcdonalds.png',
+        description: 'Depois de anos de estudo, noites em claro e muita dedicação… nada mais justo que uma recompensa do tamanho da sua conquista! E adivinha quem veio garantir o melhor momento do after? O McDonald’s!<br /><br />Seja no intervalo da pista, na pausa estratégica ou no after que nunca acaba, um lanche do Méqui sempre salva.<br /><br />Se prepara que vai ter Méquinho no After! 😎',
+        time: 'à partir das 07h30',
+    })
+
+    menu = []
+    menu.push({
+        name: 'Moscow Mule',
+        description: 'Vodka, limão, simple, angostura e purê de framboesa.'
+    });
+    menu.push({
+        name: 'Special Mule',
+        description: 'Cachaça, limão, manga picante e espuma de cravo e canela.'
+    });
+    menu.push({
+        name: 'Berry Mule',
+        description: 'Gin, morango, limão e espuma de pistache.'
+    });
+    modalData.push({
+        key: 'hambreemule',
+        title: 'Hambre | Mule',
+        image: 'content/items/bg-mule.png', 
+        brand: 'content/items/logo-mule.png',
+        brand_width: '250px',
+        menu: menu,
+        time: '22h - 06h',
+        description: 'Um clássico da coquetelaria, o mule original combina vodka, gengibre e limão. Nesta edição, você também poderá desfrutar de versões autorais e criativas dessa icônica bebida.',
+    })
+
+    
+
+
+
+
+
+
+    modalData.push({
+        key: 'buffet',
+        title: 'Open Food',
+        image: 'content/items/bg-bar.png',
+        description: 'Antepastos: 20:30 - 13:00<br />Coquetel Finger Food: 21:00 - 23:00<br />Ilha Quente: 22:00 - 04:00<br />Lanche da Madrugada: 04:00 - 06:00<br />Estação de Brigadeiros: 02:00 - 05:00',  
+    })  
+    modalData.push({
+        key: 'bar',
+        title: 'Open Bar',
+        time: '22h - 06h',
+        image: 'content/items/bg-bar.png',
+        rows: [
+            {
+                title: 'Coquetelaria',
+                number: 2,
+                columns: {
+                    col01: [
+                        {
+                            name: 'Jambuja',
+                            description: 'Jambu, vinho branco, soda, blend de maracujá, lichia e limão.'
+                        },
+                        {
+                            name: 'Cosmo level',
+                            description: 'Gin, vinho branco, cramberry e limão.'
+                        },
+                        {
+                            name: 'Tulum',
+                            description: 'Saquê, chá branco, pitaya e limão.'
+                        },
+                    ],
+                    col02: [
+                        {
+                            name: 'Lemoncello',
+                            description: 'Limoncello e espumante brut.'
+                        },
+                        {
+                            name: 'Fitzgerald',
+                            description: 'Gin, limão, simple syrup e angostura.'
+                        },
+                        {
+                            name: 'Passion sour',
+                            description: 'Whisky, purê de maracujá, xarope de amaretto, suco de abacaxi e limão siciliano'
+                        }
+                    ]
+                }
+            },
+            {
+                title: 'Alcoólicos',
+                columns: {
+                    col01: [
+                        { name: 'Budweiser | Heineken' },
+                        { name: 'Vodka Absolut | Hambre' },
+                        { name: 'Gin Gordons | Hambre' },
+                        { name: 'Saquê' },
+                    ],
+                    col02: [
+                        { name: 'Cachaça Ypioca Prata' },
+                        { name: 'Jack Daniels | Chivas | Black' },
+                        { name: 'Rumi Carta Ouro' },
+                    ]
+                }
+            },
+            {
+                title: 'Soft Drinks',
+                columns: {
+                    col01: [
+                        { name: 'Água com e sem gás' },
+                        { name: 'Coca | Coca Zero | Guaraná | Guaraná Zero' },
+                        { name: 'Sucos' },
+                    ],
+                    col02: [
+                        { name: 'Energético Red Bull' },
+                        { name: 'Heineken Zero Álcool' }
+                    ]
+                }
+            }
+        ]
+    })
+
+    menu = []
+    menu.push({
+        name: 'Piano de Cauda e Sax',
+    });
+    menu.push({
+        name: 'Lenhadores da Antártida',
+        description: '22h - 23h30', 
+    });
+    menu.push({
+        name: 'DJ Mitro',
+        description: '23h30 - 00h45',
+    });
+    menu.push({
+        name: 'Baile do Pita',
+        description: '00h45 - 02h',
+    });
+    menu.push({
+        name: 'Ruan Mansur',
+        description: '02h15 - 03h15',
+    });
+    menu.push({
+        name: 'Bonde do Tigrão',
+        description: '03h30 - 04h45',
+    });
+    menu.push({
+        name: 'Jonatas Felipe',
+        description: '05h - 06h',
+    });
+    menu.push({
+        name: 'Dummer',
+        extra: 'AFTER',
+        description: '06h - 07h',
+    });
+    menu.push({
+        name: 'DJ Dreysson',
+        extra: 'AFTER',
+        description: '07h - 08h',
+    });
+    menu.push({
+        name: 'DJ Mitro',
+        extra: 'AFTER',
+        description: '08h - 10h',
+    });
+    menu.push({
+        name: 'DJ Juan',
+        extra: 'AFTER',
+        description: '10h - 11h',
+    });
+    modalData.push({
+        key: 'pistapalco',
+        title: 'Atrações | Pista e Palco',
+        menu: menu
+    })
+    modalData.push({
+        key: 'revelo',
+        title: 'Revelô | RVLPROD',
+        description: 'Photo point exclusivo com fotos exibidas em tempo real.', 
+    })
+    // modalData.push({
+    //     key: 'espumante',
+    //     title: 'Espumante',
+    //     description: 'Espumante',
+    // })
+    modalData.push({
+        key: 'atmosfera',
+        title: 'Atmosfera',
+        description: 'Espumante',
+    })
+    modalData.push({
+        key: 'grafite',
+        title: 'Grafite',
+        description: 'Fazendo arte em tempo real pelo artista Proza.',
+    })
+    modalData.push({
+        key: 'after',
+        title: 'After',
+        description: 'Palco com receptivo dos convidados que se transformará ao longo da noite no palco da after party dos formandos.',
+    })
+    modalData.push({
+        key: 'estudio',
+        title: 'Estúdio',
+        description: 'Local destinado à captura de fotos dos formandos e famílias pelo nosso time de fotógrafos. ',
+    })
+    modalData.push({
+        key: 'chapelaria',
+        title: 'Chapelaria',
+        description: 'Local de utilização gratuita para todos os convidados para acomodação de pertences e retirada após o término do evento.',
+    })
+
+    $(function mapBind() {
+        $('#totem-img').click(function (e) {
+            e.preventDefault();
+            $('#view').fadeOut(100);
+            // mapBind()
+        });
+        fontData = []
+        fontData[1] = {name: 'Eloísa Gôngora Bengtsson'},
+        fontData[2] = {name: 'Manuela de Mari Merlo'},
+        fontData[3] = {name: 'Gabrielle Gruppelli Good'},
+        fontData[4] = {name: 'Gabrieli Junges'},
+        fontData[5] = {name: 'Camila Bloss Cordova'},
+        fontData[6] = {name: 'Guilherme Henrique Carvalho De Barros'},
+        fontData[7] = {name: 'Natalia Cristine Zen Rausis Ferreira'},
+        fontData[8] = {name: 'Luis Gustavo Iuhniseki'},
+        fontData[9] = {name: 'Camila do Valle Pavanelo'},
+        fontData[10] = {name: 'Fabiano Grenteski'},
+        fontData[11] = {name: 'Stephanie Cristina Gonçalves Silva Cassi Bobato'},
+        fontData[12] = {name: 'Lucas de Brito Berardi'},
+        fontData[13] = {name: 'Julia Alessio Amorirm'},
+        fontData[14] = {name: 'Luiz Victor Padoan de Oliveira'},
+        fontData[15] = {name: 'Ana Luisa da Cas'},
+        fontData[16] = {name: 'Anna Leticia Martins Maciel Baumel'},
+        fontData[17] = {name: 'Marina Gomes'},
+        fontData[18] = {name: 'Rodrigo Ferreira Alves Barberato'},
+        fontData[19] = {name: 'Julia dos Reis Torres'},
+        fontData[20] = {name: 'Heloísa Helena Delai Biezus'},
+        fontData[21] = {name: 'Lucas Procopiak Gugelmin'},
+        fontData[22] = {name: 'Maria Vitória Ruiz Fatuch'},
+        fontData[23] = {name: 'Luane Zontta'},
+        fontData[24] = {name: 'Maiana Bodaneze Rossasi'},
+        fontData[25] = {name: 'Ana Carolina Gottardi Wilhelm'},
+        fontData[26] = {name: 'Luiz Felipe De Azevedo Giovannetti Filho'},
+        fontData[27] = {name: 'Leticia Tozzini Tavares da Silva'},
+        fontData[28] = {name: 'Heitor Augusto Gomes'},
+        fontData[29] = {name: 'Mateus Rodrigues Alessi'},
+        fontData[30] = {name: 'Matheus Lopes de Castro'},
+        fontData[31] = {name: 'Gabriel Carvalho'},
+        fontData[32] = {name: 'Nicole Beria Callegari'},
+        fontData[33] = {name: 'João Augusto Geisler Tramujas'},
+        fontData[34] = {name: 'Geverson Lucas Schuber Junior'},
+        fontData[35] = {name: 'João Pedro Matos Gemignani'},
+        fontData[36] = {name: 'Giullia Vercersi Beraldi'},
+        fontData[37] = {name: 'Juliana Pacanaro de Oliveira'},
+        fontData[38] = {name: 'Marina Massuchin Précoma'},
+        fontData[39] = {name: 'Ana Luiza de Rezende e Cota'},
+        fontData[40] = {name: 'Lucca Weffort Caprilhone'},
+        fontData[41] = {name: 'Maria Fernanda Jara Maldonado'},
+        fontData[42] = {name: 'Ana Luiza Uberti Gindri'},
+        fontData[43] = {name: 'Manuela Fernandes Martins'},
+        fontData[44] = {name: 'Marcos Corrêa Segalla'},
+        fontData[45] = {name: 'Gessil Dgeovani Carlotto Neto'},
+        fontData[46] = {name: 'Gracieli Carlotto'},
+        fontData[47] = {name: 'Letícia Miyashiro'},
+        fontData[48] = {name: 'Fernanda Barrancos Liberatti'},
+        fontData[49] = {name: 'André Luiz Cristani Bizetto'},
+        fontData[50] = {name: 'Gabriel Spengler Ghislandi'},
+        fontData[51] = {name: 'Marcelo Gasparin Mansur'},
+        fontData[52] = {name: 'Isabela Ceschin Maestri'},
+        fontData[53] = {name: 'Camille Midori Okuyama'},
+        fontData[54] = {name: 'Enrico Bertoucci Boscardim'},
+        fontData[55] = {name: 'Guilherme Faria Cabrera'},
+        fontData[56] = {name: 'Giovanna Reis Coelho'},
+        fontData[57] = {name: 'Marina Schmid Guérios'},
+        fontData[58] = {name: 'Jorge Daher Scander Sielski'},
+        fontData[59] = {name: 'Pedro Luiz Belei Garcia'},
+        fontData[60] = {name: 'Marcos Eduardo dos Santos Duarte'},
+        fontData[61] = {name: 'Flávia Okida'},
+        fontData[62] = {name: 'Iago Garcia Miranda'},
+        fontData[63] = {name: 'Gabriela Matavelly Oliveira'},
+        fontData[64] = {name: 'Tomas Cavejon da Silva'},
+        fontData[65] = {name: 'Felipe Cantergiani Socrepa'},
+        fontData[66] = {name: 'Leonardo de Campos Silva'},
+        fontData[67] = {name: 'Lais Maria Luders'},
+        fontData[68] = {name: 'Julia Clenk Glodzinski'},
+        fontData[69] = {name: 'Pietro Maran Novais'},
+        fontData[70] = {name: 'José Alfredo Trevisan Pacher'},
+        fontData[71] = {name: 'Eise Souza Do Vale'},
+        fontData[72] = {name: 'Camila Pupo Maria'},
+        fontData[73] = {name: 'Eduarda Feitosa Lourenço'},
+        fontData[74] = {name: 'Ana Beatriz Vieira Batista'},
+        fontData[75] = {name: 'Maria Vitoria Corrêa'},
+        fontData[76] = {name: 'Isadora Utri Andreguetto'},
+        fontData[77] = {name: 'Liete Antosz Lopes Maia'},
+        fontData[78] = {name: 'Laryssa Lilia Bridi'},
+        fontData[79] = {name: 'João Pedro Fagoti Ferraz Cornelio'},
+        fontData[80] = {name: 'Luísa Lima Ávila'},
+        fontData[81] = {name: 'Maria Cecília Bogado'},
+        fontData[82] = {name: 'Eduarda Mazurkievz de Freitas'},
+        fontData[83] = {name: 'Silvia Sahina Báez Kritski'},
+        fontData[84] = {name: 'Ana Carolina Coelho Baracat'},
+        fontData[85] = {name: 'Elen Maria Guimarães Zeni'},
+        fontData[86] = {name: 'Nayane Hiba Fuga'},
+        fontData[87] = {name: 'Breno Mariano Dal Corso'},
+        fontData[88] = {name: 'Gabrielly Leonel Ribas Machado'},
+        fontData[89] = {name: 'Rafaela Sancliment Iglesias Pucci'},
+        fontData[90] = {name: 'Guilherme Riskalla Mendonça'},
+        fontData[91] = {name: 'Guilherme Basseggio'},
+        fontData[92] = {name: 'João Pedro Erichsen Rosa Pinto'},
+        fontData[93] = {name: 'Victoria Karolyne Rosa Monteiro Ayres'},
+        fontData[94] = {name: 'Maria Carolina Vanin Bertogy'},
+        fontData[95] = {name: 'Leonardo Silva De Almeida'},
+        fontData[96] = {name: 'Sofia Oliveira Pimentel'},
+        fontData[97] = {name: 'Victoria Bizzi Vieira'},
+        fontData[98] = {name: 'Pietro Ragi G. Ramos'},
+        fontData[99] = {name: 'Lucas da Rocha Junqueira Pereira'},
+        fontData[100] = {name: 'Rebeca dos Santos de Oliveira Rocha'},
+        fontData[101] = {name: 'André Lucas Miranda Antonio'},
+        fontData[102] = {name: 'Ana Carolina Buhrer Ferreira'},
+        fontData[103] = {name: 'Lucas Vinicius Panisson'},
+        fontData[104] = {name: 'Gabriele Fracaro'},
+        fontData[105] = {name: 'Guilherme Jinbo Borges'},
+        fontData[106] = {name: 'Eduarda Vitor Martos'},
+        fontData[107] = {name: 'Juliana Fernandes Torres'},
+        fontData[108] = {name: 'Vitória Zanellato Krizanoviski'},
+        fontData[109] = {name: 'Larissa Coli Vieira'},
+        fontData[110] = {name: 'Leonardo Goscinski Trevisan'},
+        fontData[111] = {name: 'Ligia Kimie Cabral Abe'},
+        fontData[112] = {name: 'Gabrielle Corrêa de Andrade'},
+        fontData[113] = {name: 'Dannyelle Heloize Leite da Silva'},
+        fontData[114] = {name: 'Andressa Ribeiro dos Santos'},
+        fontData[115] = {name: 'Nathalia dos Santos Valverde'},
+        fontData[116] = {name: 'Milena de Souza Costa'},
+        fontData[117] = {name: 'Gustavo Garcia Lopes Merino'},
+        fontData[118] = {name: 'Gabriel de Lima Cavassim'},
+        fontData[119] = {name: 'Gabriela Schlabendorff'},
+        fontData[120] = {name: 'Manoela Bassani Castro'},
+        fontData[121] = {name: 'Bruna Gabriela Cardoso Nizer'},
+        fontData[122] = {name: 'Luiza Roderjan Malucelli'},
+        fontData[123] = {name: 'Maria Rigotto De Almeida'},
+        fontData[124] = {name: 'Ishmael T. Padilha'},
+        fontData[125] = {name: 'Guilherme Machado Klein'},
+        fontData[126] = {name: 'Eliza Piasecki Celli'},
+        fontData[127] = {name: 'Giovana Kellen Souza Maldonado'},
+        fontData[128] = {name: 'Viviane Lesko'},
+        fontData[129] = {name: 'Carlos Henrique Salvi'},
+        fontData[130] = {name: 'Mariana Brunetto'},
+        fontData[131] = {name: 'João Victor Rodrigues Bubicz'},
+        fontData[132] = {name: 'Rafaela Akemi Saito'},
+        fontData[133] = {name: 'Sofia de Queiroz Escorsin'},
+        fontData[134] = {name: 'Everson Andrade de Carvalho'},
+        fontData[135] = {name: 'Roberto Del Claro Hopker'},
+        fontData[136] = {name: 'João Arthur Borges Da Silva'},
+        fontData[137] = {name: 'Enrico Lima Alves Caruso'},
+        fontData[138] = {name: 'Rodrigo Belem Kowalski'},
+        fontData[139] = {name: 'Eduardo Campos Julião'},
+        fontData[140] = {name: 'Rodrigo Müller Carvalho'},
+        fontData[141] = {name: 'Mylena da Silva Couto'},
+        fontData[142] = {name: 'Mariana Cosmo Bonaldi'},
+        fontData[143] = {name: 'Jessica Moraes Jacomasso'},
+        fontData[144] = {name: 'Ana Luiza Masselai'},
+        fontData[145] = {name: 'Maria Eduarda Tarta Kotzias'},
+        fontData[146] = {name: 'Amanda Citon Buhler'},
+        fontData[147] = {name: 'Professores'},
+        fontData[150] = {name: 'Maria Eduarda Obladen'},
+        fontData[151] = {name: 'Edgar Haluch'},
+        fontData[152] = {name: 'Eduardo Vieira Nascimento'},
+        fontData[153] = {name: 'Rômulo Targa Pinto'},
+        fontData[154] = {name: 'Amanda Perin Fregonese'},
+        fontData[155] = {name: 'Marcos Paulo Varão Silva Moura'},
+        fontData[156] = {name: 'Camila Silva Lima'},
+        fontData[157] = {name: 'Larissa Klug'},
+        fontData[158] = {name: 'Amanda Tenius'},
+        
+        defaultDipTooltip = '',
+        $image = $('#totem-img'),
+        $selectionsDetails  = $('#view'),
+        opts = {
+            // enableAutoResizeSupport: true,
+            // autoResize: true,
+            fillOpacity: 0.5,
+            fillColor: 'd42e16',
+            strokeColor: 'd42e16',
+            strokeOpacity: 0.5,
+            strokeWidth: 2,
+            stroke: true,
+            isSelectable: true,
+            singleSelect: true,
+            mapKey: 'data-name',
+            listKey: 'data-name',
+            onClick: function (data) {
+                if ( data.e.currentTarget.dataset.type == 'hint' ) {
+                    if ( data.e.currentTarget.dataset.side && data.e.currentTarget.dataset.side == 'left' )
+                        $('#view').css('left', data.e.pageX - 422)
+                    else
+                        $('#view').css('left', data.e.pageX)
+                    $('#view').css('top', data.e.pageY - 28)
+                    $('#view').fadeIn(100)
+                    $('#view').css('display', 'flex')
+                    if ( data.key ) {
+                        $('#view .photo').attr('src',  'content/fotos/' + data.key + '.png')
+                        $('#view .name').html(fontData[data.key.toString()].name)
+                        $('#view .number').html(data.key)
+                    }
+                } else {
+                    const results = Object.keys(modalData)
+                        .filter(index => modalData[index].key.toLowerCase().includes(data.key.toLowerCase()))
+                        .map(index => ({ index, data: modalData[index] }));
+                        
+                    if ( results.length > 0 ) {
+                        $('#modal .title').html('')
+                        $('#modal .title').css('font-size', '80px')
+                        $('#modal .subtitle').html('')
+                        $('#modal .subtitle').show()
+                        $('#modal .menu').html('')
+                        $('#modal .time').html('')
+                        $('#modal .brand').attr('src', '')
+                        $('#modal .bg').attr('src', '')
+                        $('#modal').fadeIn(100)
+                        
+                        if ( results[0].data.image && results[0].data.image != '' ) {
+                            $('#modal .bg').attr('src',  results[0].data.image)
+                            $('#modal .bg').show()
+                        } else
+                            $('#modal .bg').hide()
+
+                        if ( results[0].data.brand && results[0].data.brand != '' ) {
+                            if ( !results[0].data.brand_width || results[0].data.brand_width == '' )
+                                results[0].data.brand_width = '140px'
+                            $('#modal .title').html('<img src="' + results[0].data.brand + '" style="height:auto; width: ' + results[0].data.brand_width + '">') 
+
+                            $('#modal .title').css('font-size', '20px')
+                            if ( results[0].data.extra && results[0].data.extra != '' ) {
+                                $('#modal .title').append('<span class="badge">' + results[0].data.extra + '</span>')
+                            }
+                        } else {
+                            $('#modal .title').html(results[0].data.title)
+                        }
+                        if ( results[0].data.description && results[0].data.description != '' ) {
+                            $('#modal .subtitle').html(results[0].data.description)
+                        } else {
+                            $('#modal .subtitle').hide()
+                        }
+                        if ( results[0].data.time && results[0].data.time != '' ) {
+                            $('#modal .time').html(results[0].data.time)
+                        }
+                        if ( results[0].data.menu && results[0].data.menu != '' ) {
+                            for ( let m of results[0].data.menu ) { 
+                                $('#modal .menu').append('<p class="card-title">' + m.name + '</p>')
+                                if ( m.extra && m.extra != '' ) {
+                                    $('#modal .menu').append('<span class="badge">' + m.extra + '</span>')
+                                }
+                                if ( !m.description || m.description == '' )
+                                    m.description   = ''
+                                $('#modal .menu').append('<p class="card-description">' + m.description + '</p>')
+                            }
+                        }
+                        if ( results[0].data.description_model && results[0].data.description_model == 'center' ) {
+                            $('#modal .menu').css('text-align', 'center')
+                        }
+
+                        if (results[0].data.rows) {
+                            let $modal = $('#modal .rowslist');
+                            let html = ''; // Armazena o HTML para melhor performance
+
+                            for (let i = 0; i < results[0].data.rows.length; i++) { // Correção do loop
+                                let rowlist = results[0].data.rows[i];
+
+                                html += '<hr />';
+                                html += '<div class="rowslist">';
+
+                                if (rowlist.title && rowlist.title !== '') {
+                                    html += '<h2>' + rowlist.title + '</h2>';
+                                }
+                                if ( rowlist.columns && rowlist.columns !== '') {
+                                    html += '<div class="columns">';
+                                        for (let j = 0; j < rowlist.columns.col01.length; j++) {
+                                        html += '<div class="col">';
+                                        html += '<h3>' + rowlist.columns.col01[j].name + '</h3>';
+                                        if ( rowlist.columns.col01[j].description && rowlist.columns.col01[j].description !== '')
+                                            html += '<p>' + rowlist.columns.col01[j].description + '</p>';
+                                        html += '</div>';
+                                    }
+                                    for (let j = 0; j < rowlist.columns.col02.length; j++) {
+                                        html += '<div class="col">';
+                                        html += '<h3>' + rowlist.columns.col02[j].name + '</h3>';
+                                        if ( rowlist.columns.col02[j].description && rowlist.columns.col02[j].description !== '')
+                                            html += '<p>' + rowlist.columns.col02[j].description + '</p>';
+                                        html += '</div>';
+                                    }
+                                    html += '</div>';
+                                }
+                                html += '</div>';
+                            }
+                            $modal.html(html); // Insere tudo de uma vez no DOM
+                        }
+
+                    }
+                }
+            },
+        };
+        $image.mapster(opts);
+    });
+    </script>
+    <div id="modal">
+        <div class="close-top"><img src="close.png" /></div>
+        <img class="bg" />
+        <div class="row"></div>
+        <h1 class="title"></h1>
+        <p class="subtitle"></p>
+        <p class="time"></p>
+        <div class="rowslist over"></div>
+        <div class="menu"></div>
+        <a class="close"><img src="back.png" /></a>
+    </div>
+    <div id="finder">
+        <input type="search" name="search" id="search" placeholder="Encontrar formando" autocomplete="off" />
+        <div class="row hint"><em>toque no nome da busca abaixo para visualizar a mesa...</em></div>
+        <div id="results"></div>
+    </div>
+    <div id="view">
+        <div class="area1">
+            <img class="photo" src="" />
+            <div class="name"></div>
+            </div>
+        <div class="number"></div>
+    </div>
+    <img src="content/hand.png" class="hand" />
+    <img src="content/astronauta.png" class="astronauta" />
+    <img src="mapa.png" id="totem-img" usemap="#map-totem" />
+    <map name="map-totem">
+        <area shape="rect" coords="834,622,885,667" href="javascript:void(0);" data-type="info" id="area_" data-name="atmosfera" />
+        <area shape="rect" coords="626,748,682,797" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
+        <area shape="rect" coords="626,890,683,939" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
+        <area shape="rect" coords="499,1161,527,1203" href="javascript:void(0);" data-type="info" id="area_" data-name="milk" />
+        <area shape="rect" coords="752,1143,798,1152" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
+        <area shape="rect" coords="800,1208,841,1222" href="javascript:void(0);" data-type="info" id="area_" data-name="miden" />
+        <area shape="rect" coords="800,1222,841,1237" href="javascript:void(0);" data-type="info" id="area_" data-name="bacco" />
+        <area shape="rect" coords="863,1057,887,1149" href="javascript:void(0);" data-type="info" id="area_" data-name="hambreemule" />
+        <area shape="rect" coords="715,1399,735,1441" href="javascript:void(0);" data-type="info" id="area_" data-name="mcdonalds" />
+        <area shape="rect" coords="739,624,785,632" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
+        <area shape="rect" coords="452,646,461,691" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
+        <area shape="rect" coords="474,863,506,886" href="javascript:void(0);" data-type="info" id="area_" data-name="quetzalli" />
+        <area shape="rect" coords="452,908,460,953" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
+        <area shape="rect" coords="639,627,686,636" href="javascript:void(0);" data-type="info" id="area_" data-name="antepastos" />
+        <area shape="rect" coords="812,796,863,884" href="javascript:void(0);" data-type="info" id="area_" data-name="pistapalco" />
+        <area shape="rect" coords="715,747,808,940" href="javascript:void(0);" data-type="info" id="area_" data-name="pistapalco" />
+        <area shape="rect" coords="452,737,461,783" href="javascript:void(0);" data-type="info" id="area_" data-name="antepastos" />
+        <area shape="rect" coords="451,992,460,1036" href="javascript:void(0);" data-type="info" id="area_" data-name="antepastos" />
+        <area shape="rect" coords="643,1218,672,1243" href="javascript:void(0);" data-type="info" id="area_" data-name="revelo" />
+        <!-- <area shape="rect" coords="648,1161,680,1170" href="javascript:void(0);" data-type="info" id="area_" data-name="espumante" /> -->
+        <area shape="rect" coords="626,1143,672,1152" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
+        <area shape="rect" coords="690,1142,735,1152" href="javascript:void(0);" data-type="info" id="area_" data-name="antepastos" />
+        <area shape="rect" coords="841,1207,883,1237" href="javascript:void(0);" data-type="info" id="area_" data-name="grafite" />
+        <area shape="rect" coords="818,1344,869,1398" href="javascript:void(0);" data-type="info" id="area_" data-name="after" />
+        <area shape="rect" coords="894,1247,927,1504" href="javascript:void(0);" data-type="info" id="area_" data-name="estudio" />
+        <area shape="rect" coords="835,1247,895,1279" href="javascript:void(0);" data-type="info" id="area_" data-name="estudio" />
+        <area shape="rect" coords="835,1471,895,1503" href="javascript:void(0);" data-type="info" id="area_" data-name="estudio" />
+        <area shape="rect" coords="624,1507,671,1599" href="javascript:void(0);" data-type="info" id="area_" data-name="chapelaria" />
+        <area shape="rect" coords="714,1397,738,1442" href="javascript:void(0);" data-type="info" id="area_" data-name="mcdonalds" />
+        <area shape="circle" coords="472,842,14" href="javascript:void(0);" data-type="info" id="area_" data-name="whiskeria" />
+        <area shape="circle" coords="484,1141,9" href="javascript:void(0);" data-type="hint" id="area_1" data-name="1" />
+        <area shape="circle" coords="484,1120,9" href="javascript:void(0);" data-type="hint" id="area_2" data-name="2" />
+        <area shape="circle" coords="484,1098,9" href="javascript:void(0);" data-type="hint" id="area_3" data-name="3" />
+        <area shape="circle" coords="484,1076,9" href="javascript:void(0);" data-type="hint" id="area_4" data-name="4" />
+        <area shape="circle" coords="484,1046,9" href="javascript:void(0);" data-type="hint" id="area_5" data-name="5" />
+        <area shape="circle" coords="484,1023,9" href="javascript:void(0);" data-type="hint" id="area_6" data-name="6" />
+        <area shape="circle" coords="484,1002,9" href="javascript:void(0);" data-type="hint" id="area_7" data-name="7" />
+        <area shape="circle" coords="484,979,9" href="javascript:void(0);" data-type="hint" id="area_8" data-name="8" />
+        <area shape="circle" coords="484,947,9" href="javascript:void(0);" data-type="hint" id="area_9" data-name="9" />
+        <area shape="circle" coords="484,924,9" href="javascript:void(0);" data-type="hint" id="area_10" data-name="10" />
+        <area shape="circle" coords="484,902,9" href="javascript:void(0);" data-type="hint" id="area_11" data-name="11" />
+        <area shape="circle" coords="484,780,9" href="javascript:void(0);" data-type="hint" id="area_12" data-name="12" />
+        <area shape="circle" coords="484,758,9" href="javascript:void(0);" data-type="hint" id="area_13" data-name="13" />
+        <area shape="circle" coords="484,736,9" href="javascript:void(0);" data-type="hint" id="area_14" data-name="14" />
+        <area shape="circle" coords="484,699,9" href="javascript:void(0);" data-type="hint" id="area_15" data-name="15" />
+        <area shape="circle" coords="484,677,9" href="javascript:void(0);" data-type="hint" id="area_16" data-name="16" />
+        <area shape="circle" coords="484,655,9" href="javascript:void(0);" data-type="hint" id="area_17" data-name="17" />
+        <area shape="circle" coords="484,633,9" href="javascript:void(0);" data-type="hint" id="area_18" data-name="18" />
+        <area shape="circle" coords="506,1142,9" href="javascript:void(0);" data-type="hint" id="area_19" data-name="19" />
+        <area shape="circle" coords="506,1120,9" href="javascript:void(0);" data-type="hint" id="area_20" data-name="20" />
+        <area shape="circle" coords="506,1098,9" href="javascript:void(0);" data-type="hint" id="area_21" data-name="21" />
+        <area shape="circle" coords="506,1076,9" href="javascript:void(0);" data-type="hint" id="area_22" data-name="22" />
+        <area shape="circle" coords="506,1045,9" href="javascript:void(0);" data-type="hint" id="area_23" data-name="23" />
+        <area shape="circle" coords="506,1023,9" href="javascript:void(0);" data-type="hint" id="area_24" data-name="24" />
+        <area shape="circle" coords="506,1001,9" href="javascript:void(0);" data-type="hint" id="area_25" data-name="25" />
+        <area shape="circle" coords="506,979,9" href="javascript:void(0);" data-type="hint" id="area_26" data-name="26" />
+        <area shape="circle" coords="506,946,9" href="javascript:void(0);" data-type="hint" id="area_27" data-name="27" />
+        <area shape="circle" coords="506,924,9" href="javascript:void(0);" data-type="hint" id="area_28" data-name="28" />
+        <area shape="circle" coords="506,902,9" href="javascript:void(0);" data-type="hint" id="area_29" data-name="29" />
+        <area shape="circle" coords="506,780,9" href="javascript:void(0);" data-type="hint" id="area_30" data-name="30" />
+        <area shape="circle" coords="506,758,9" href="javascript:void(0);" data-type="hint" id="area_31" data-name="31" />
+        <area shape="circle" coords="506,737,9" href="javascript:void(0);" data-type="hint" id="area_32" data-name="32" />
+        <area shape="circle" coords="506,699,9" href="javascript:void(0);" data-type="hint" id="area_33" data-name="33" />
+        <area shape="circle" coords="506,677,9" href="javascript:void(0);" data-type="hint" id="area_34" data-name="34" />
+        <area shape="circle" coords="506,656,9" href="javascript:void(0);" data-type="hint" id="area_35" data-name="35" />
+        <area shape="circle" coords="506,633,9" href="javascript:void(0);" data-type="hint" id="area_36" data-name="36" />
+        <area shape="circle" coords="529,1141,9" href="javascript:void(0);" data-type="hint" id="area_37" data-name="37" />
+        <area shape="circle" coords="529,1120,9" href="javascript:void(0);" data-type="hint" id="area_38" data-name="38" />
+        <area shape="circle" coords="529,1098,9" href="javascript:void(0);" data-type="hint" id="area_39" data-name="39" />
+        <area shape="circle" coords="529,1076,9" href="javascript:void(0);" data-type="hint" id="area_40" data-name="40" />
+        <area shape="circle" coords="529,1045,9" href="javascript:void(0);" data-type="hint" id="area_41" data-name="41" />
+        <area shape="circle" coords="529,1023,9" href="javascript:void(0);" data-type="hint" id="area_42" data-name="42" />
+        <area shape="circle" coords="529,1001,9" href="javascript:void(0);" data-type="hint" id="area_43" data-name="43" />
+        <area shape="circle" coords="529,979,9" href="javascript:void(0);" data-type="hint" id="area_44" data-name="44" />
+        <area shape="circle" coords="529,947,9" href="javascript:void(0);" data-type="hint" id="area_45" data-name="45" />
+        <area shape="circle" coords="529,924,9" href="javascript:void(0);" data-type="hint" id="area_46" data-name="46" />
+        <area shape="circle" coords="529,902,9" href="javascript:void(0);" data-type="hint" id="area_47" data-name="47" />
+        <area shape="circle" coords="529,780,9" href="javascript:void(0);" data-type="hint" id="area_48" data-name="48" />
+        <area shape="circle" coords="529,758,9" href="javascript:void(0);" data-type="hint" id="area_49" data-name="49" />
+        <area shape="circle" coords="529,736,9" href="javascript:void(0);" data-type="hint" id="area_50" data-name="50" />
+        <area shape="circle" coords="529,699,9" href="javascript:void(0);" data-type="hint" id="area_51" data-name="51" />
+        <area shape="circle" coords="529,677,9" href="javascript:void(0);" data-type="hint" id="area_52" data-name="52" />
+        <area shape="circle" coords="529,655,9" href="javascript:void(0);" data-type="hint" id="area_53" data-name="53" />
+        <area shape="circle" coords="529,634,9" href="javascript:void(0);" data-type="hint" id="area_54" data-name="54" />
+        <area shape="circle" coords="559,700,9" href="javascript:void(0);" data-type="hint" id="area_55" data-name="55" />
+        <area shape="circle" coords="559,677,9" href="javascript:void(0);" data-type="hint" id="area_56" data-name="56" />
+        <area shape="circle" coords="559,655,9" href="javascript:void(0);" data-type="hint" id="area_57" data-name="57" />
+        <area shape="circle" coords="559,634,9" href="javascript:void(0);" data-type="hint" id="area_58" data-name="58" />
+        <area shape="circle" coords="582,700,9" href="javascript:void(0);" data-type="hint" id="area_59" data-name="59" />
+        <area shape="circle" coords="582,677,9" href="javascript:void(0);" data-type="hint" id="area_60" data-name="60" />
+        <area shape="circle" coords="582,655,9" href="javascript:void(0);" data-type="hint" id="area_61" data-name="61" />
+        <area shape="circle" coords="582,634,9" href="javascript:void(0);" data-type="hint" id="area_62" data-name="62" />
+        <area shape="circle" coords="605,700,9" href="javascript:void(0);" data-type="hint" id="area_63" data-name="63" />
+        <area shape="circle" coords="605,677,9" href="javascript:void(0);" data-type="hint" id="area_64" data-name="64" />
+        <area shape="circle" coords="605,655,9" href="javascript:void(0);" data-type="hint" id="area_65" data-name="65" />
+        <area shape="circle" coords="605,634,9" href="javascript:void(0);" data-type="hint" id="area_66" data-name="66" />
+        <area shape="circle" coords="635,1111,9" href="javascript:void(0);" data-type="hint" id="area_67" data-name="67" />
+        <area shape="circle" coords="635,1091,9" href="javascript:void(0);" data-type="hint" id="area_68" data-name="68" />
+        <area shape="circle" coords="635,1072,9" href="javascript:void(0);" data-type="hint" id="area_69" data-name="69" />
+        <area shape="circle" coords="635,1052,9" href="javascript:void(0);" data-type="hint" id="area_70" data-name="70" />
+        <area shape="circle" coords="635,1028,9" href="javascript:void(0);" data-type="hint" id="area_71" data-name="71" />
+        <area shape="circle" coords="635,1009,9" href="javascript:void(0);" data-type="hint" id="area_72" data-name="72" />
+        <area shape="circle" coords="635,990,9" href="javascript:void(0);" data-type="hint" id="area_73" data-name="73" />
+        <area shape="circle" coords="635,971,9" href="javascript:void(0);" data-type="hint" id="area_74" data-name="74" />
+        <area shape="circle" coords="633,696,9" href="javascript:void(0);" data-type="hint" id="area_75" data-name="75" />
+        <area shape="circle" coords="633,675,9" href="javascript:void(0);" data-type="hint" id="area_76" data-name="76" />
+        <area shape="circle" coords="633,654,9" href="javascript:void(0);" data-type="hint" id="area_77" data-name="77" />
+        <area shape="circle" coords="656,1111,9" href="javascript:void(0);" data-type="hint" id="area_78" data-name="78" />
+        <area shape="circle" coords="656,1091,9" href="javascript:void(0);" data-type="hint" id="area_79" data-name="79" />
+        <area shape="circle" coords="656,1072,9" href="javascript:void(0);" data-type="hint" id="area_80" data-name="80" />
+        <area shape="circle" coords="656,1052,9" href="javascript:void(0);" data-type="hint" id="area_81" data-name="81" />
+        <area shape="circle" coords="657,1029,9" href="javascript:void(0);" data-type="hint" id="area_82" data-name="82" />
+        <area shape="circle" coords="656,1009,9" href="javascript:void(0);" data-type="hint" id="area_83" data-name="83" />
+        <area shape="circle" coords="655,989,9" href="javascript:void(0);" data-type="hint" id="area_84" data-name="84" />
+        <area shape="circle" coords="656,971,9" href="javascript:void(0);" data-type="hint" id="area_85" data-name="85" />
+        <area shape="circle" coords="655,695,9" href="javascript:void(0);" data-type="hint" id="area_86" data-name="86" />
+        <area shape="circle" coords="657,675,9" href="javascript:void(0);" data-type="hint" id="area_87" data-name="87" />
+        <area shape="circle" coords="657,655,9" href="javascript:void(0);" data-type="hint" id="area_88" data-name="88" />
+        <area shape="circle" coords="678,1110,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_89" data-name="89" />
+        <area shape="circle" coords="678,1091,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_90" data-name="90" />
+        <area shape="circle" coords="678,1072,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_91" data-name="91" />
+        <area shape="circle" coords="678,1053,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_92" data-name="92" />
+        <area shape="circle" coords="680,1030,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_93" data-name="93" />
+        <area shape="circle" coords="680,1010,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_94" data-name="94" />
+        <area shape="circle" coords="679,990,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_95" data-name="95" />
+        <area shape="circle" coords="679,970,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_96" data-name="96" />
+        <area shape="circle" coords="679,695,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_97" data-name="97" />
+        <area shape="circle" coords="679,675,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_98" data-name="98" />
+        <area shape="circle" coords="679,653,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_99" data-name="99" />
+        <area shape="circle" coords="701,1111,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_100" data-name="100" />
+        <area shape="circle" coords="701,1091,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_101" data-name="101" />
+        <area shape="circle" coords="701,1072,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_102" data-name="102" />
+        <area shape="circle" coords="701,1052,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_103" data-name="103" />
+        <area shape="circle" coords="702,1029,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_104" data-name="104" />
+        <area shape="circle" coords="702,1010,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_105" data-name="105" />
+        <area shape="circle" coords="702,991,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_106" data-name="106" />
+        <area shape="circle" coords="702,971,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_107" data-name="107" />
+        <area shape="circle" coords="704,696,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_108" data-name="108" />
+        <area shape="circle" coords="703,675,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_109" data-name="109" />
+        <area shape="circle" coords="704,655,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_110" data-name="110" />
+        <area shape="circle" coords="731,1122,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_111" data-name="111" />
+        <area shape="circle" coords="732,1102,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_112" data-name="112" />
+        <area shape="circle" coords="731,1082,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_113" data-name="113" />
+        <area shape="circle" coords="731,1060,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_114" data-name="114" />
+        <area shape="circle" coords="731,1037,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_115" data-name="115" />
+        <area shape="circle" coords="732,1018,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_116" data-name="116" />
+        <area shape="circle" coords="732,999,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_117" data-name="117" />
+        <area shape="circle" coords="732,979,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_118" data-name="118" />
+        <area shape="circle" coords="731,957,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_119" data-name="119" />
+        <area shape="circle" coords="730,715,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_120" data-name="120" />
+        <area shape="circle" coords="730,695,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_121" data-name="121" />
+        <area shape="circle" coords="731,675,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_122" data-name="122" />
+        <area shape="circle" coords="730,654,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_123" data-name="123" />
+        <area shape="circle" coords="755,1122,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_124" data-name="124" />
+        <area shape="circle" coords="754,1102,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_125" data-name="125" />
+        <area shape="circle" coords="754,1083,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_126" data-name="126" />
+        <area shape="circle" coords="754,1061,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_127" data-name="127" />
+        <area shape="circle" coords="754,1037,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_128" data-name="128" />
+        <area shape="circle" coords="754,1017,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_129" data-name="129" />
+        <area shape="circle" coords="753,998,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_130" data-name="130" />
+        <area shape="circle" coords="755,979,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_131" data-name="131" />
+        <area shape="circle" coords="753,957,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_132" data-name="132" />
+        <area shape="circle" coords="751,716,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_133" data-name="133" />
+        <area shape="circle" coords="752,695,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_134" data-name="134" />
+        <area shape="circle" coords="752,674,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_135" data-name="135" />
+        <area shape="circle" coords="753,654,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_136" data-name="136" />
+        <area shape="circle" coords="778,1122,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_137" data-name="137" />
+        <area shape="circle" coords="777,1103,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_138" data-name="138" />
+        <area shape="circle" coords="776,1082,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_139" data-name="139" />
+        <area shape="circle" coords="776,1060,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_140" data-name="140" />
+        <area shape="circle" coords="776,1038,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_141" data-name="141" />
+        <area shape="circle" coords="776,1017,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_142" data-name="142" />
+        <area shape="circle" coords="776,998,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_143" data-name="143" />
+        <area shape="circle" coords="776,980,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_144" data-name="144" />
+        <area shape="circle" coords="777,958,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_145" data-name="145" />
+        <area shape="circle" coords="775,717,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_146" data-name="146" />
+        <area shape="circle" coords="800,1122,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_150" data-name="150" />
+        <area shape="circle" coords="799,1102,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_151" data-name="151" />
+        <area shape="circle" coords="799,1082,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_152" data-name="152" />
+        <area shape="circle" coords="800,1061,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_153" data-name="153" />
+        <area shape="circle" coords="799,1038,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_154" data-name="154" />
+        <area shape="circle" coords="798,1017,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_155" data-name="155" />
+        <area shape="circle" coords="799,998,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_156" data-name="156" />
+        <area shape="circle" coords="799,978,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_157" data-name="157" />
+        <area shape="circle" coords="799,957,9" href="javascript:void(0);" data-type="hint" data-side="left" id="area_158" data-name="158" />
+    </map>
+</html>
