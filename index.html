@@ -363,10 +363,14 @@
             debounceTimer = setTimeout(function () {
                 if (query.length > 2) {
                     $('.hint').fadeIn(100);
-                    query = query.toLowerCase();
+                    // query = query.toLowerCase();
+                    query = removeAccents(query);
                     const results = Object.keys(fontData)
-                        .filter(index => fontData[index].name.toLowerCase().includes(query))
+                        .filter(index => removeAccents(fontData[index].name).includes(query))
                         .map(index => ({ index, name: fontData[index].name }));
+                    // const results = Object.keys(fontData)
+                    //     .filter(index => fontData[index].name.toLowerCase().includes(query))
+                    //     .map(index => ({ index, name: fontData[index].name }));
                     
                     results.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -397,7 +401,9 @@
             $("#modal").fadeOut(200);
         });
     });
-
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
     modalData = []
     let menu = []
     
@@ -478,11 +484,11 @@
     menu = []
     menu.push({
         name: 'Energy Whiskey',
-        description: 'Red label e Redbull',
+        description: 'Whisky e Red Bull',
     });
     menu.push({
         name: 'Jack And Coke',
-        description: 'Jack Daniels e Coca Cola',
+        description: 'Whisky e Coca-Cola',
     });
     menu.push({
         name: 'Whisky Sour',
@@ -495,7 +501,7 @@
         image: 'content/items/bg-whiskeria.png',
         menu: menu,
         time: '22h - 06h',
-        description: 'Bar exclusivo com as principais marcas de Whisky e coquetéis clássicos.',
+        description: 'Bar exclusivo com as principais marcas de whisky e coquetéis clássicos.',
     })
 
 
@@ -558,15 +564,27 @@
         description: 'Um clássico da coquetelaria, o mule original combina vodka, gengibre e limão. Nesta edição, você também poderá desfrutar de versões autorais e criativas dessa icônica bebida.',
     })
 
+    menu = []
+    menu.push({
+        name: 'Shot 1',
+        description: 'Vodka, limão, simple, angostura e purê de framboesa.'
+    });
+    modalData.push({
+        key: 'shots',
+        title: 'Bar de Shots',
+        image: 'content/items/bg-shots.png', 
+        // brand: 'content/items/logo-mule.png',
+        // brand_width: '250px',
+        menu: menu,
+        time: '22h - 06h',
+        description: 'Desc bar de shots',
+    })
+
     modalData.push({
         key: 'buffet',
         title: 'Open Food',
         image: 'content/items/bg-buffet.png',
         rows: [
-            {
-                title: 'Antepasto',
-                time: '20h30 – 01h'
-            },
             {
                 title: 'Coquetel Finger Food',
                 time: '21h – 23h',
@@ -583,13 +601,13 @@
                             name: 'Arancini de Queijo Provolone',
                         },
                         {
-                            name: 'Mignon a Wellington',
+                            name: 'Mignon à Wellington',
                         },
                     ]
                 }
             },
             {
-                title: 'Ilha QUente',
+                title: 'Ilha Quente',
                 time: '22h – 04h',
                 number: 2,
                 columns: {
@@ -604,13 +622,15 @@
                         },
                         {
                             name: 'Sorrentino de ricota',
-                            description: 'E ervas finas finalizado com creme Alla’rabiatta (vegetariano).'
+                            description: 'E ervas finas finalizado com creme Alla’rabiatta.',
+                            veg: true
                         },
                     ],
                     col02: [
                         {
                             name: 'Tortelonis de mozarela',
-                            description: 'E maçã na massa verde ao molho de 4 queijos (vegetariano).'
+                            description: 'E maçã na massa verde ao molho de 4 queijos.',
+                            veg: true
                         },
                         {
                             name: 'Cubos de filé Mignon',
@@ -671,6 +691,7 @@
     modalData.push({
         key: 'bar',
         title: 'Open Bar',
+        description: 'Cardápio completo',
         time: '22h - 06h',
         image: 'content/items/bg-bar.png',
         rows: [
@@ -719,8 +740,8 @@
                     ],
                     col02: [
                         { name: 'Cachaça Ypioca Prata' },
-                        { name: 'Jack Daniels | Chivas | Black' },
-                        { name: 'Rumi Carta Ouro' },
+                        { name: 'Jack Daniel\'s | Chivas | Black' },
+                        { name: 'Rum Carta Ouro' },
                     ]
                 }
             },
@@ -729,7 +750,7 @@
                 columns: {
                     col01: [
                         { name: 'Água com e sem gás' },
-                        { name: 'Coca | Coca Zero | Guaraná | Guaraná Zero' },
+                        { name: 'Coca | Coca Zero | Guaraná ' },
                         { name: 'Sucos' },
                     ],
                     col02: [
@@ -755,7 +776,9 @@
         image: 'content/atracoes/bg-atracoes.png',
         items: [
             {
-                name: 'Piano de causa e sax',
+                name: 'Quartilis',
+                time: 'Receptivo',
+                // image: 'content/atracoes/quartilis.png',
                 image: 'content/atracoes/piano.png',
             },
             {
@@ -1191,14 +1214,18 @@
                                     html += '<div class="columns">';
                                     for (let j = 0; j < rowlist.columns.col01.length; j++) {
                                         html += '<div class="col">';
-                                        html += '<h3>' + rowlist.columns.col01[j].name + '</h3>';
+                                            html += '<h3>' + rowlist.columns.col01[j].name;
+                                            rowlist.columns.col01[j].veg ? html += ' <img src="content/veg.jpg" style="mix-blend-mode: multiply;width: 25px;display: inline-flex;" />' : html += '';
+                                            html += '</h3>';
                                         if ( rowlist.columns.col01[j].description && rowlist.columns.col01[j].description !== '')
                                             html += '<p>' + rowlist.columns.col01[j].description + '</p>';
                                         html += '</div>';
                                     }
                                     for (let j = 0; j < rowlist.columns.col02.length; j++) {
                                         html += '<div class="col">';
-                                        html += '<h3>' + rowlist.columns.col02[j].name + '</h3>';
+                                        html += '<h3>' + rowlist.columns.col02[j].name;
+                                            rowlist.columns.col02[j].veg ? html += ' <img src="content/veg.jpg" style="mix-blend-mode: multiply;width: 25px;display: inline-flex;" />' : html += '';
+                                            html += '</h3>';
                                         if ( rowlist.columns.col02[j].description && rowlist.columns.col02[j].description !== '')
                                             html += '<p>' + rowlist.columns.col02[j].description + '</p>';
 
@@ -1269,12 +1296,15 @@
     <map name="map-totem">
         <area shape="rect" coords="834,622,885,667" href="javascript:void(0);" data-type="info" id="area_" data-name="atmosfera" />
         <area shape="rect" coords="626,748,682,797" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
+        <area shape="rect" coords="841,681,862,792" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
+        <area shape="rect" coords="842,890,862,1037" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
         <area shape="rect" coords="626,890,683,939" href="javascript:void(0);" data-type="info" id="area_" data-name="bar" />
         <area shape="rect" coords="499,1161,527,1203" href="javascript:void(0);" data-type="info" id="area_" data-name="milk" />
         <area shape="rect" coords="752,1143,798,1152" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
         <area shape="rect" coords="800,1208,841,1222" href="javascript:void(0);" data-type="info" id="area_" data-name="miden" />
         <area shape="rect" coords="800,1222,841,1237" href="javascript:void(0);" data-type="info" id="area_" data-name="bacco" />
-        <area shape="rect" coords="863,1057,887,1149" href="javascript:void(0);" data-type="info" id="area_" data-name="hambreemule" />
+        <area shape="rect" coords="863,1056,888,1098" href="javascript:void(0);" data-type="info" id="area_" data-name="hambreemule" />
+        <area shape="rect" coords="864,1098,887,1148" href="javascript:void(0);" data-type="info" id="area_" data-name="shots" />
         <area shape="rect" coords="715,1399,735,1441" href="javascript:void(0);" data-type="info" id="area_" data-name="mcdonalds" />
         <area shape="rect" coords="739,624,785,632" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
         <area shape="rect" coords="452,646,461,691" href="javascript:void(0);" data-type="info" id="area_" data-name="buffet" />
