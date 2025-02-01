@@ -61,6 +61,59 @@
             #view .area1 {
                 display: flex !important;
             }
+            .comercial .section {
+                margin: 15px 0;
+                padding-bottom: 15px;
+                padding: 0 40px;
+                border-bottom: 2px solid #ddd;
+            }
+
+            .comercial .section:last-child {
+                border-bottom: none;
+            }
+
+            .comercial .grid {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                gap: 10px;
+            }
+
+            .comercial .item {
+                flex: 1 1 20%;
+                min-width: 100px;
+            }
+
+            .comercial .item h2 {
+                font-size: 60px;
+            }
+
+            .comercial .item p {
+                font-size: 16px;
+                font-family: 'MontrealBold';
+                letter-spacing: -1px;
+            }
+
+            .comercial .highlight {
+                font-family: 'Superline';
+                font-size: 48px;
+                line-height: 0;
+            }
+
+            .comercial .subtext {
+                font-size: 16px;
+                font-family: 'MontrealBold';
+                margin-top: -14px;
+                margin-bottom: 60px;
+                padding: 0;
+                line-height: 0;
+            }
+            .comercial .subtext.top {
+                font-size: 24px;
+                margin-bottom: 0;
+                margin-top:45px
+            }
+            
             #view .photo {
                 height: 69px;
                 margin: 4px;
@@ -855,41 +908,14 @@
         title: 'Line Up | Palco After',
     })
 
+    let htmlcontent = '<div class="container"><div class="section grid"><div class="item"><h2>155</h2><p>Formandos</p></div><div class="item"><h2>4.500</h2><p>Pessoas</p></div><div class="item"><h2>155</h2><p>Mesas</p></div><div class="item"><h2>5 DIAS</h2><p>de montagem</p></div></div><div class="section"><p class="subtext top">Staff</p><p class="highlight">MAIS DE 700 PESSOAS</p><p class="subtext">envolvidas na montagem e produção do evento</p><p class="highlight">35 COORDENADORES</p><p class="subtext">Equipe <strong style="color: red;">ATMOSFERA</strong></p><p class="highlight">35 FOTÓGRAFOS</p></div><p class="subtext top">Pontos de Foto</p><div class="section grid"><div class="item"><h2>15</h2><p>estúdios</p></div><div class="item"><h2>3</h2><p>estúdios fashion</p></div><div class="item"><h2>3</h2><p>ponto de valsa <br> (foto e vídeo)</p></div><div class="item"><h2>3</h2><p>pontos de decoração</p></div></div></div>'
 
     modalData.push({
         key: 'atmosfera',
-        title: 'Você está prestes a entrar em um <span style="color: #FF0000;">Universo Exclusivo</span>.',
+        title: 'Você está em um <span style="color: #FF0000;">Universo Exclusivo</span>.',
         description: 'No grupo Atmosfera que une as marcas YZ, Formô e Revelô, acreditamos que cada evento é uma oportunidade de criar uma experiência única. Este espaço foi projetado para ser uma verdadeira imersão atmosférica exclusivo aos formandos.',
         image: 'content/atracoes/bg-atm.png',
-        rows: [
-            {
-                title: 'Astro Bar',
-                number: 2,
-                columns: {
-                    col01: [
-                        {
-                            name: 'Stratos Mule',
-                            description: 'Vodka, simple syrup, bitter, limão e espuma de gengibre.'
-                        },
-                    ],
-                    col02: [
-                        {
-                            name: 'Velvet Nebula',
-                            description: 'Vodka, blend de morango, toranja e abacaxi'
-                        }
-                    ]
-                }
-            },
-            {
-                title: 'Buffet',
-                description: 'Experiência gastronômica',
-            },
-            {
-                title: 'Astronauta à Vista',
-                key: 'astronauta',
-                description: 'Ah, e tem um astronauta por aí. Se você topar com ele, aproveite e pegue um adesivo para marcar sua missão na festa.',
-            }
-        ]
+        html: htmlcontent
     })
     
     
@@ -1170,6 +1196,9 @@
                         } else {
                             $('#modal .subtitle').hide()
                         }
+                        if ( results[0].data.html && results[0].data.html != '' ) {
+                            $('#modal .comercial').html(results[0].data.html)
+                        }   
                         if ( results[0].data.time && results[0].data.time != '' ) {
                             $('#modal .time').html(results[0].data.time)
                         }
@@ -1280,14 +1309,10 @@
         <p class="subtitle"></p>
         <p class="time"></p>
         <div class="imgcontent"></div>
+        <div class="comercial"></div>
         <div class="rowslist over"></div>
         <div class="menu"></div>
         <a class="close"><img src="back.png" /></a>
-    </div>
-    <div id="finder">
-        <input type="search" name="search" id="search" placeholder="Encontrar formando" autocomplete="off" />
-        <div class="row hint"><em>toque no nome da busca abaixo para visualizar a mesa...</em></div>
-        <div id="results"></div>
     </div>
     <div id="view">
         <div class="area1">
