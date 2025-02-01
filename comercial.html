@@ -125,7 +125,7 @@
                 height: 77px;
                 width: 60px;
                 margin-right: 20px;
-                align-content: center;
+                place-content: center;
             }
             #view .name {
                 font-family: 'MontrealBold';
@@ -908,7 +908,7 @@
         title: 'Line Up | Palco After',
     })
 
-    let htmlcontent = '<div class="container"><div class="section grid"><div class="item"><h2>155</h2><p>Formandos</p></div><div class="item"><h2>4.500</h2><p>Pessoas</p></div><div class="item"><h2>155</h2><p>Mesas</p></div><div class="item"><h2>5 DIAS</h2><p>de montagem</p></div></div><div class="section"><p class="subtext top">Staff</p><p class="highlight">MAIS DE 700 PESSOAS</p><p class="subtext">envolvidas na montagem e produção do evento</p><p class="highlight">35 COORDENADORES</p><p class="subtext">Equipe <strong style="color: red;">ATMOSFERA</strong></p><p class="highlight">35 FOTÓGRAFOS</p></div><p class="subtext top">Pontos de Foto</p><div class="section grid"><div class="item"><h2>15</h2><p>estúdios</p></div><div class="item"><h2>3</h2><p>estúdios fashion</p></div><div class="item"><h2>3</h2><p>ponto de valsa <br> (foto e vídeo)</p></div><div class="item"><h2>3</h2><p>pontos de decoração</p></div></div></div>'
+    let htmlcontent = '<div class="container"><div class="section grid"><div class="item"><h2>155</h2><p>Formandos</p></div><div class="item"><h2>+4.500</h2><p>Pessoas</p></div><div class="item"><h2>155</h2><p>Mesas</p></div><div class="item"><h2>5 DIAS</h2><p>de montagem</p></div></div><div class="section"><p class="subtext top">Staff</p><p class="highlight">MAIS DE 700 PESSOAS</p><p class="subtext">envolvidas na montagem e produção do evento</p><p class="highlight">35 COORDENADORES</p><p class="subtext">Equipe <strong style="color: red;">ATMOSFERA</strong></p><p class="highlight">35 FOTÓGRAFOS</p></div><p class="subtext top">Pontos de Foto</p><div class="section grid"><div class="item"><h2>15</h2><p>estúdios</p></div><div class="item"><h2>3</h2><p>estúdios fashion</p></div><div class="item"><h2>3</h2><p>ponto de valsa <br> (foto e vídeo)</p></div><div class="item"><h2>3</h2><p>pontos de decoração</p></div></div></div>'
 
     modalData.push({
         key: 'atmosfera',
@@ -1165,6 +1165,7 @@
                         $('#modal .over').html('')
                         $('#modal .row').html('')
                         $('#modal .imgcontent').html('')
+                        $('#modal .comercial').html('')
                         $('.rowslist').html('')
                         
                         if ( results[0].data.image && results[0].data.image != '' ) {
